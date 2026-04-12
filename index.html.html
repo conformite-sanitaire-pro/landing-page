@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Conformité sanitaire — Rejoignez les fondateurs</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Barlow+Condensed:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink: #080e18;
+  --ink2: #0f1c2e;
+  --paper: #f5f2ed;
+  --green: #00d68f;
+  --green-dim: #00a06a;
+  --orange: #ff6b2b;
+  --red: #ff3b3b;
+  --blue: #1a5fa8;
+  --muted: rgba(245,242,237,0.45);
+  --line: rgba(245,242,237,0.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--ink);
+  color: var(--paper);
+  overflow-x: hidden;
+}
+
+/* ─── NOISE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: .6;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 6vw; height: 68px;
+  background: rgba(8,14,24,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-logo { height: 36px; filter: brightness(0) invert(1); }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--ink); background: var(--green);
+  border: none; border-radius: 4px;
+  padding: 10px 22px; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: background .2s, transform .15s;
+}
+.nav-cta:hover { background: #00f0a0; transform: translateY(-1px); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  padding: 80px 6vw 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grid lines background */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(245,242,237,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,242,237,.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* Radial glow */
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(0,214,143,.08) 0%, transparent 70%);
+  top: -100px; right: -200px;
+  pointer-events: none;
+}
+
+.hero-left { position: relative; z-index: 1; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--green);
+  border: 1px solid rgba(0,214,143,.3);
+  border-radius: 3px; padding: 6px 14px;
+  margin-bottom: 36px;
+}
+.live-dot {
+  width: 7px; height: 7px; background: var(--green);
+  border-radius: 50%; flex-shrink: 0;
+  animation: blink 1.4s ease infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: .92;
+  letter-spacing: 1px;
+  color: var(--paper);
+  margin-bottom: 28px;
+}
+.hero h1 .accent { color: var(--green); }
+.hero h1 .stroke {
+  -webkit-text-stroke: 2px var(--paper);
+  color: transparent;
+}
+
+.hero-desc {
+  font-size: 16px; font-weight: 300; line-height: 1.75;
+  color: var(--muted); max-width: 480px;
+  margin-bottom: 20px;
+}
+
+.hero-honest {
+  font-size: 13px; color: rgba(245,242,237,.5);
+  border-left: 2px solid var(--green);
+  padding: 10px 16px;
+  margin-bottom: 40px;
+  line-height: 1.65;
+  background: rgba(0,214,143,.04);
+}
+.hero-honest strong { color: var(--green); }
+
+.pillars-row {
+  display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 44px;
+}
+.pill {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 3px; color: var(--muted);
+}
+.pill.active { border-color: var(--green); color: var(--green); background: rgba(0,214,143,.06); }
+
+/* ─── CTA CARD ─── */
+.hero-right { position: relative; z-index: 1; }
+
+.cta-box {
+  background: var(--ink2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 44px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-box::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--green), var(--green-dim), transparent);
+}
+
+.cta-box-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 20px;
+}
+.cta-box h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem; line-height: 1; letter-spacing: 1px;
+  color: var(--paper); margin-bottom: 16px;
+}
+.cta-box p {
+  font-size: 14px; color: var(--muted); line-height: 1.7;
+  margin-bottom: 32px;
+}
+.cta-box p strong { color: var(--paper); }
+
+.btn-cta {
+  display: block; width: 100%;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink); background: var(--green);
+  border: none; border-radius: 5px;
+  padding: 18px;
+  text-decoration: none; text-align: center;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 0 30px rgba(0,214,143,.25);
+  margin-bottom: 16px;
+}
+.btn-cta:hover {
+  background: #00f0a0;
+  transform: translateY(-2px);
+  box-shadow: 0 0 50px rgba(0,214,143,.4);
+}
+.btn-note {
+  text-align: center; font-size: 11px; color: rgba(245,242,237,.3);
+  letter-spacing: .5px;
+}
+
+.steps-mini {
+  margin-top: 32px;
+  display: flex; flex-direction: column; gap: 0;
+  border-top: 1px solid var(--line);
+  padding-top: 28px;
+}
+.step-mini {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.step-mini:last-child { border-bottom: none; }
+.step-mini-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem; color: var(--green);
+  line-height: 1; flex-shrink: 0; width: 24px;
+}
+.step-mini-text h4 {
+  font-size: 13px; font-weight: 600; color: var(--paper);
+  margin-bottom: 2px;
+}
+.step-mini-text p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+
+
+/* ─── STATS SECTION ─── */
+.stats-sec {
+  padding: 100px 6vw;
+  position: relative;
+}
+.stats-sec::before {
+  content: '';
+  position: absolute; top: 0; left: 6vw; right: 6vw; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+.sec-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 14px; display: block;
+}
+.sec-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: .95; letter-spacing: 1px;
+  color: var(--paper); max-width: 800px; margin-bottom: 64px;
+}
+.sec-title .dim { color: var(--muted); }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+.stat-cell {
+  background: var(--ink2);
+  padding: 40px 36px;
+  position: relative;
+}
+.stat-cell::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.stat-cell:nth-child(1)::after { background: var(--red); }
+.stat-cell:nth-child(2)::after { background: var(--orange); }
+.stat-cell:nth-child(3)::after { background: var(--blue); }
+
+.stat-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 1; display: block; margin-bottom: 12px;
+}
+.stat-cell:nth-child(1) .stat-big { color: var(--red); }
+.stat-cell:nth-child(2) .stat-big { color: var(--orange); }
+.stat-cell:nth-child(3) .stat-big { color: #5b9cf6; }
+
+.stat-title { font-size: 14px; font-weight: 600; color: var(--paper); margin-bottom: 8px; }
+.stat-desc { font-size: 12px; color: var(--muted); line-height: 1.65; }
+.stat-src {
+  font-size: 10px; color: rgba(245,242,237,.2);
+  font-style: italic; margin-top: 16px;
+  font-family: 'Barlow Condensed', sans-serif; letter-spacing: .5px;
+}
+
+/* PAIN BLOCK */
+.pain-block {
+  background: var(--ink2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.pain-header {
+  background: var(--orange);
+  padding: 22px 36px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+}
+.pain-header h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem; letter-spacing: 1px; color: #fff; line-height: 1;
+}
+.pain-header .cost {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem; color: #fff; letter-spacing: 1px;
+}
+.pain-header .cost-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; color: rgba(255,255,255,.7);
+}
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1px; background: var(--line);
+}
+.pain-item {
+  background: var(--ink2);
+  padding: 28px 30px;
+}
+.pain-ico { font-size: 24px; margin-bottom: 12px; display: block; }
+.pain-item h4 { font-size: 14px; font-weight: 600; color: var(--paper); margin-bottom: 6px; }
+.pain-item p { font-size: 12px; color: var(--muted); line-height: 1.65; }
+.pain-quote {
+  padding: 20px 36px;
+  font-size: 13px; font-style: italic; color: rgba(245,242,237,.4);
+  border-top: 1px solid var(--line);
+  line-height: 1.65;
+}
+.pain-quote span { display: block; font-size: 10px; color: rgba(245,242,237,.2); margin-top: 6px; font-style: normal; letter-spacing: .5px; }
+
+/* ─── PLATFORM ─── */
+.platform-sec {
+  padding: 100px 6vw;
+  background: var(--paper);
+  color: var(--ink);
+  position: relative;
+}
+.platform-sec .sec-eyebrow { color: var(--green-dim); }
+.platform-sec .sec-title { color: var(--ink); }
+.platform-sec .sec-title .dim { color: rgba(8,14,24,.4); }
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(8,14,24,.1);
+  border: 2px solid rgba(8,14,24,.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.platform-card {
+  background: var(--paper);
+  padding: 40px 36px;
+  position: relative;
+}
+.platform-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+}
+.platform-card.c1::before { background: var(--blue); }
+.platform-card.c2::before { background: var(--green-dim); }
+.platform-card.c3::before { background: var(--orange); }
+
+.platform-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem; color: rgba(8,14,24,.06);
+  line-height: 1; margin-bottom: -10px; display: block;
+}
+.platform-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 3px;
+  display: inline-block; margin-bottom: 20px;
+}
+.c1 .platform-tag { background: rgba(26,95,168,.1); color: var(--blue); }
+.c2 .platform-tag { background: rgba(0,160,106,.1); color: var(--green-dim); }
+.c3 .platform-tag { background: rgba(255,107,43,.1); color: var(--orange); }
+
+.platform-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem; letter-spacing: 1px; color: var(--ink);
+  margin-bottom: 12px; line-height: 1;
+}
+.platform-card p {
+  font-size: 13px; color: rgba(8,14,24,.6); line-height: 1.7;
+  margin-bottom: 24px;
+}
+.feature-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.feature-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: rgba(8,14,24,.7); line-height: 1.4;
+}
+.feature-list li::before {
+  content: '—';
+  font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+.c1 .feature-list li::before { color: var(--blue); }
+.c2 .feature-list li::before { color: var(--green-dim); }
+.c3 .feature-list li::before { color: var(--orange); }
+
+.price-badge {
+  margin-top: 24px; padding-top: 20px;
+  border-top: 1px solid rgba(8,14,24,.1);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(8,14,24,.4);
+}
+
+/* ─── WHO ─── */
+.who-sec {
+  padding: 80px 6vw;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.who-sec .sec-title { font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 40px; }
+.personas {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.persona {
+  flex: 1; min-width: 160px;
+  border: 1px solid var(--line);
+  border-radius: 5px; padding: 18px 20px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  transition: border-color .2s;
+}
+.persona:hover { border-color: var(--green); color: var(--paper); }
+.persona-ico { font-size: 20px; }
+
+/* ─── FINAL CTA ─── */
+.final-sec {
+  padding: 120px 6vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-sec::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,214,143,.07) 0%, transparent 70%),
+    linear-gradient(180deg, transparent 0%, rgba(0,214,143,.03) 100%);
+  pointer-events: none;
+}
+.final-sec .sec-eyebrow { display: block; text-align: center; margin-bottom: 20px; }
+.final-sec .sec-title {
+  margin: 0 auto 16px;
+  text-align: center; max-width: 700px;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+}
+.final-sub {
+  font-size: 16px; color: var(--muted); margin-bottom: 48px;
+  max-width: 500px; margin-left: auto; margin-right: auto;
+  line-height: 1.7;
+}
+.btn-final {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--ink); background: var(--green);
+  border: none; border-radius: 5px;
+  padding: 20px 52px;
+  text-decoration: none;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 0 50px rgba(0,214,143,.3);
+  position: relative;
+}
+.btn-final:hover {
+  background: #00f0a0;
+  transform: translateY(-2px);
+  box-shadow: 0 0 80px rgba(0,214,143,.5);
+}
+.final-note {
+  margin-top: 20px; font-size: 12px; color: rgba(245,242,237,.25);
+  letter-spacing: 1px;
+  font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase;
+}
+
+footer {
+  padding: 28px 6vw;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--line);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(245,242,237,.25);
+  flex-wrap: wrap; gap: 12px;
+}
+footer a { color: var(--green); text-decoration: none; }
+
+@media (max-width: 1024px) {
+  .platform-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 80px 6vw 60px;
+    text-align: center;
+  }
+  .hero h1 { font-size: clamp(2.8rem, 10vw, 4rem); }
+  .hero-eyebrow { margin: 0 auto 28px; }
+  .hero-honest { text-align: left; }
+  .pillars-row { justify-content: center; }
+  .hero-right { width: 100%; }
+  .cta-box { padding: 32px 24px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .platform-grid { grid-template-columns: 1fr; }
+  .pain-grid { grid-template-columns: 1fr 1fr; }
+  .sec-title { font-size: clamp(2rem, 7vw, 3rem); }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 60px 5vw 50px; gap: 36px; }
+  .hero h1 { font-size: clamp(2.4rem, 11vw, 3rem); line-height: 1; }
+  .hero-desc { font-size: 14px; }
+  .hero-honest { font-size: 12px; padding: 10px 14px; }
+  .pillars-row { gap: 8px; }
+  .pill { font-size: 10px; padding: 5px 10px; }
+  .cta-box { padding: 24px 18px; }
+  .cta-box h2 { font-size: 1.6rem; }
+  .btn-cta { font-size: 13px; padding: 15px; }
+  .steps-mini { display: none; }
+
+  .stats-sec { padding: 60px 5vw; }
+  .stats-grid { gap: 12px; }
+  .stat-cell { padding: 24px 20px; }
+  .stat-big { font-size: 2.8rem; }
+
+  .pain-header { flex-direction: column; gap: 8px; padding: 18px 20px; }
+  .pain-header h3 { font-size: 1.4rem; }
+  .pain-header .cost { font-size: 1.8rem; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .pain-item { padding: 20px; }
+  .pain-quote { padding: 16px 20px; font-size: 11px; }
+  div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+  .platform-sec { padding: 60px 5vw; }
+  .platform-card { padding: 28px 22px; }
+  .platform-num { font-size: 3.5rem; }
+  .platform-card h3 { font-size: 1.6rem; }
+
+  .who-sec { padding: 60px 5vw; }
+  .personas { flex-direction: column; }
+  .persona { min-width: unset; }
+
+  .steps::before { display: none; }
+  .steps { flex-direction: column; gap: 24px; }
+  .step { min-width: unset; padding: 0; }
+
+  .final-sec { padding: 70px 5vw; }
+  .btn-final { padding: 16px 28px; font-size: 14px; }
+
+  footer { flex-direction: column; text-align: center; gap: 8px; }
+
+  /* Urgency bar */
+  div[style*="background:var(--orange)"] {
+    flex-direction: column !important;
+    gap: 12px !important;
+    padding: 16px 5vw !important;
+    text-align: center;
+  }
+  div[style*="background:var(--orange)"] div[style*="width:1px"] {
+    display: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="live-dot"></span> Recherche en cours · Places limitées</div>
+    <h1>
+      <span class="accent">Êtes-vous</span><br/>
+      vraiment<br/>
+      prêt en cas<br/>
+      de <span class="stroke">contrôle</span><br/>
+      sanitaire ?
+    </h1>
+    <p class="hero-desc">notre plateforme est une plateforme complète de conformité sanitaire — logiciel HACCP, audits sur site et formations hygiène. Pour que votre prochain contrôle DDPP ne soit plus une source de stress.</p>
+    <div class="hero-honest">
+      <strong>Transparence :</strong> le produit est en cours de conception. Les gérants qui participent à notre étude et sont sélectionnés comme bêta-testeurs bénéficieront d’un <strong>tarif fondateur −50% à vie.</strong>
+    </div>
+    <div class="pillars-row">
+      <span class="pill active">✓ Logiciel HACCP</span>
+      <span class="pill active">✓ Audits sur site</span>
+      <span class="pill active">✓ Formations</span>
+      <span class="pill active">✓ Support &amp; assistance</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="cta-box">
+      <div class="cta-box-label">→ Accès fondateur · Places limitées</div>
+      <h2>Devenez<br/>bêta-testeur</h2>
+      <p>Répondez à notre formulaire. Les profils sélectionnés à l’issue d’un entretien accèdent au <strong>tarif fondateur −50% à vie</strong> et à un <strong>accès en avant-première.</strong></p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScm312fX6XdVZmVgv7xVM0ibFMZ6oV-WSumb97Igsj7IFPo6w/viewform" target="_blank" class="btn-cta">Je veux un accès fondateur →</a>
+      <div class="btn-note">⏱ 2 minutes · Confidentiel · Aucune vente</div>
+      <div class="steps-mini">
+        <div class="step-mini">
+          <div class="step-mini-num">01</div>
+          <div class="step-mini-text"><h4>Vous répondez au formulaire</h4><p>2 minutes sur votre quotidien.</p></div>
+        </div>
+        <div class="step-mini">
+          <div class="step-mini-num">02</div>
+          <div class="step-mini-text"><h4>Entretien de 20 min</h4><p>On creuse vos vrais besoins. Aucune vente.</p></div>
+        </div>
+        <div class="step-mini">
+          <div class="step-mini-num">03</div>
+          <div class="step-mini-text"><h4>Sélection &amp; accès fondateur</h4><p>Tarif −50% à vie + avant-première.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- URGENCY BAR -->
+<div style="background:var(--orange);padding:16px 6vw;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap">
+  <div style="display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Lancement prévu dans 6 à 12 mois
+  </div>
+  <div style="width:1px;height:22px;background:rgba(255,255,255,.35)"></div>
+  <div style="display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Places bêta-testeurs limitées
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="stats-sec">
+  <span class="sec-eyebrow">Le contexte</span>
+  <div class="sec-title">2023 : un record.<br/><span class="dim">Les autorités répondent.</span></div>
+
+  <div class="stats-grid">
+    <div class="stat-cell">
+      <span class="stat-big">22 282</span>
+      <div class="stat-title">personnes intoxiquées en France en 2023</div>
+      <div class="stat-desc">Record absolu depuis la mise en place de la surveillance en 1987. La tendance est à la hausse.</div>
+      <div class="stat-src">Source : Santé Publique France, 2024</div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-big">45%</span>
+      <div class="stat-title">des intoxications en restauration commerciale</div>
+      <div class="stat-desc">Restaurants, boulangeries, traiteurs — le secteur est en première ligne des contaminations.</div>
+      <div class="stat-src">Source : Santé Publique France, 2023</div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-big">+80%</span>
+      <div class="stat-title">d’inspections sanitaires depuis 2024</div>
+      <div class="stat-desc">190 000 contrôles par an prévus. Votre établissement n’y échappera pas.</div>
+      <div class="stat-src">Source : DGAL — Ministère de l’Agriculture, 2024</div>
+    </div>
+  </div>
+
+  <div class="pain-block">
+    <div class=pain-header>
+      <div>
+        <div class="cost-label">Coût moyen estimé d’une fermeture administrative</div>
+        <div class="cost">10 000 — 20 000€</div>
+      </div>
+      <h3>Une catastrophe<br/>silencieuse</h3>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-item"><span class="pain-ico">💸</span><h4>Salaires maintenus</h4><p>Vos employés sont payés même cuisine fermée. Les charges sociales aussi.</p></div>
+      <div class="pain-item"><span class="pain-ico">🏠</span><h4>Loyer &amp; charges fixes</h4><p>Le loyer, l’énergie, les abonnements — tout continue. Sans une seule recette.</p></div>
+      <div class="pain-item"><span class="pain-ico">📉</span><h4>Chiffre d’affaires à zéro</h4><p>Zéro couvert, zéro recette. Chaque jour fermé est une perte irrécupérable.</p></div>
+      <div class="pain-item"><span class="pain-ico">⭐</span><h4>Réputation abîmée</h4><p>Avis négatifs, baisse de fréquentation. Des effets qui durent des mois.</p></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(245,242,237,.08)">
+      <div class="pain-quote">“Dans l’Aube en 2024 : 24 établissements mis en demeure, 6 procédures de fermeture — <strong style="color:var(--paper)">presque un contrôlé sur deux.</strong>”<span>Source : Matot Braine / DGAL, août 2024</span></div>
+      <div class="pain-quote" style="border-left:2px solid var(--orange)">Selon les estimations de professionnels du secteur, <strong style="color:var(--paper)">près d’un établissement sur cinq</strong> ne parvient jamais à rouvrir après une fermeture administrative — et finit par déposer le bilan.<span>Estimation issue de témoignages de terrain</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section class="platform-sec">
+  <span class="sec-eyebrow">La solution</span>
+  <div class="sec-title">Pas un outil.<br/><span class="dim">Une plateforme complète.</span></div>
+  <div class="platform-grid">
+    <div class="platform-card c1">
+      <span class="platform-num">01</span>
+      <span class="platform-tag">Dès le lancement</span>
+      <h3>Logiciel HACCP</h3>
+      <p>Tout ce que l’inspecteur veut voir, centralisé en un seul endroit. Accessible depuis un téléphone en plein service.</p>
+      <ul class="feature-list">
+        <li>Traçabilité des réceptions et fabrications</li>
+        <li>Relevés de températures avec alertes</li>
+        <li>Checklists nettoyage avec signature</li>
+        <li>Étiquetage HACCP 60×40mm</li>
+        <li>PMS généré automatiquement</li>
+        <li>Gestion fournisseurs &amp; non-conformités</li>
+      </ul>
+    </div>
+    <div class="platform-card c2">
+      <span class="platform-num">02</span>
+      <span class="platform-tag">Dès le lancement</span>
+      <h3>Audit sur site</h3>
+      <p>Un auditeur certifié HACCP se déplace. Rapport PDF, note sur 100, plan d’action concret pour votre prochain contrôle.</p>
+      <ul class="feature-list">
+        <li>Auditeur certifié HACCP</li>
+        <li>Visite sur site 2 à 3h</li>
+        <li>Rapport PDF complet</li>
+        <li>Note sur 100 et axes d’amélioration</li>
+        <li>Préparation contrôle DDPP</li>
+      </ul>
+    </div>
+    <div class="platform-card c3">
+      <span class="platform-num">03</span>
+      <span class="platform-tag">Dès le lancement</span>
+      <h3>Formation hygiène</h3>
+      <p>Vos équipes formées aux bonnes pratiques HACCP. En présentiel ou en ligne, adaptée à votre type d’établissement.</p>
+      <ul class="feature-list">
+        <li>Formation réglementaire obligatoire</li>
+        <li>Adaptée à votre établissement</li>
+        <li>Attestation officielle</li>
+        <li>Mise à jour réglementaire incluse</li>
+        <li>Intra ou inter-établissements</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section class="who-sec">
+  <div style="max-width:1100px;margin:0 auto">
+    <span class="sec-eyebrow">Pour qui ?</span>
+    <div class="sec-title">Tous les professionnels<br/><span class="dim">de la restauration.</span></div>
+    <div class="personas">
+      <div class="persona"><span class="persona-ico">🍽️</span> Restaurants</div>
+      <div class="persona"><span class="persona-ico">🥐</span> Boulangeries</div>
+      <div class="persona"><span class="persona-ico">🏥</span> EHPAD &amp; cantines</div>
+      <div class="persona"><span class="persona-ico">🚚</span> Traiteurs</div>
+      <div class="persona"><span class="persona-ico">☕</span> Cafés &amp; snacks</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-sec">
+  <span class="sec-eyebrow">Rejoignez les fondateurs</span>
+  <div class="sec-title">Vous voulez<br/><span style="color:var(--green)">en faire partie ?</span></div>
+  <p class="final-sub">Les établissements sélectionnés co-construisent la solution et bénéficient d’un tarif fondateur <strong style="color:var(--green)">-50% à vie</strong> sur l’abonnement. Places limitées.</p>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLScm312fX6XdVZmVgv7xVM0ibFMZ6oV-WSumb97Igsj7IFPo6w/viewform" target="_blank" class="btn-final">Je veux un accès fondateur →</a>
+  <div class="final-note">2 minutes · Confidentiel · Aucun engagement</div>
+</section>
+
+<footer>
+  <span>© 2025 · Plateforme de conformité sanitaire</span>
+  <a href="/cdn-cgi/l/email-protection#660509081207051226100912140302090b070f0803480014"><span class="__cf_email__" d
